@@ -1,3 +1,5 @@
+#Use this script to delete multiple user profiles and registry keys associated. Last Use Time will be added soon. 
+
 $profiles = Get-CimInstance -Class Win32_UserProfile 
 #Add whatever users that need to be excluded from the deletion process
 $users = 'schaudhary','test2'
