@@ -1,0 +1,11 @@
+$profiles = Get-CimInstance -Class Win32_UserProfile 
+#Add whatever users that need to be excluded from the deletion process
+$users = 'schaudhary','test2'
+foreach ($profile in $profiles){
+    if ($profile.Special -ne 'True'){
+        if ($profile.LocalPath.split('\')[-1] -notin $users) {
+            $profile | Where-Object { $_.LocalPath.split('\')[-1] } | Remove-CimInstance -WhatIf
+            Write-Host "deleting" $profile.LocalPath
+        }
+    }
+}
