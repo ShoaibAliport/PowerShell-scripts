@@ -1,6 +1,7 @@
 #This script has the lastusetime parameter to go based off of old users
 
 $profiles = Get-CimInstance -Class Win32_UserProfile 
+#Add whatever users that need to be excluded from the deletion process
 $users = 'schaudhary','test1'
 foreach ($profile in $profiles){
     if ($profile.Special -ne 'True'){
