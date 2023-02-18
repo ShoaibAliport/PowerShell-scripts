@@ -1,0 +1,14 @@
+#This script has the lastusetime parameter to go based off of old users
+
+$profiles = Get-CimInstance -Class Win32_UserProfile 
+$users = 'schaudhary','test1'
+foreach ($profile in $profiles){
+    if ($profile.Special -ne 'True'){
+        if ($profile.LocalPath.split('\')[-1] -notin $users) {
+            if ($profile.lastusetime -lt (Get-Date).AddDays(-5)){
+                $profile | Where-Object { $_.LocalPath.split('\')[-1] } | Remove-CimInstance -WhatIf
+                Write-Host "deleting" $profile.LocalPath
+            }
+        }
+    }
+}
